@@ -1,6 +1,6 @@
-# DCDataViews #
+# DCSlideOutViewController #
 
-Wrappers around UITableView and UICollectionView to make simpler to use. It also provides a custom grouped tableview that is twitter bootstrapped inspired.
+Does the center slide view thing as seen in Path app.
 
 # Dependancies #
 
@@ -8,24 +8,29 @@ Requires Quartz framework.
 
 # Example #
 
-	DCTableSource *tableSource = [[DCTableSource alloc] init];
-	tableSource.delegate = self;
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height) style:UITableViewStyleGrouped]; // UITableViewStyleGrouped
-    self.tableView.delegate = tableSource;
-    self.tableView.dataSource = tableSource;
-    self.tableView.backgroundView = nil;
-    self.tableView.backgroundColor = [UIColor colorWithRed:245/255.0f green:245/255.0f blue:245/255.0f alpha:1];//[UIColor whiteColor];
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
-
-	id object = [yourobject createObject]; //your custom objects, can be any kind of object
-	[tableSource.items addObject:object];
+	UINavigationController* navBar = [[UINavigationController alloc] initWithRootViewController:[[YourCenterViewController alloc] init]];
+	GPSlideOutViewController* slide = [DCSlideOutViewController slideOutController:navBar
+	                                                                          left:[[YourLeftViewController alloc] init]
+	                                                                         right:[[YourRightViewController alloc] init];
+	slide.leftViewIsSlideLength = YES;
+	self.window.rootViewController = slide;
 	
-	//then implement this delegate to map the object to cell associates.
-	-(Class)classForObject:(id)object
+then in your main view controller I recommend you add something like this:
+
+	self.navigationItem.leftBarButtonItem = [UIBarButtonItem customButtonWithImage:[UIImage imageNamed:@"show_sidebar"] target:self selector:@selector(openLeft)];
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem customButtonWithImage:[UIImage imageNamed:@"show_participants"] target:self selector:@selector(openRight)];
+
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	-(void)openLeft
 	{
-	    if([object isKindOfClass:[yourobject class]])
-	        return [MessageCell class];
-	    return nil;
+	    GPSlideOutViewController* slide = [DCSlideOutViewController currentSlide];
+	    [slide showLeftView];
+	}
+	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+	-(void)openRight
+	{
+	    GPSlideOutViewController* slide = [DCSlideOutViewController currentSlide];
+	    [slide showRightView];
 	}
 	
 # Requirements #
@@ -34,7 +39,7 @@ This framework requires at least iOS 5 above.
 
 # Install #
 
-The recommended approach for installing DCDataViews is via the CocoaPods package manager, as it provides flexible dependency management and dead simple installation.
+The recommended approach for installing DCSlideOutViewController is via the CocoaPods package manager, as it provides flexible dependency management and dead simple installation.
 
 via CocoaPods
 
@@ -48,7 +53,7 @@ Change to the directory of your Xcode project, and Create and Edit your Podfile 
 	$ touch Podfile
 	$ edit Podfile
 	platform :ios, '5.0' 
-	pod 'DCDataViews'
+	pod 'DCSlideOutViewController'
 
 Install into your project:
 
@@ -58,7 +63,7 @@ Open your project in Xcode from the .xcworkspace file (not the usual project fil
 
 # License #
 
-DCDataViews is license under the Apache License.
+DCSlideOutViewController is license under the Apache License.
 
 # Contact #
 
