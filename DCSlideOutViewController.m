@@ -17,7 +17,7 @@
 
 @implementation DCSlideOutViewController
 
-@synthesize rightController,leftController,centerController,leftViewIsSlideLength;
+@synthesize rightController,leftController,centerController,leftViewIsSlideLength,canShowRight,canShowLeft;
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -26,6 +26,7 @@
     if (self) {
         self.slideOffset = 265;
         self.canSwipeView = YES;
+        self.canShowLeft = self.canShowRight = YES;
     }
     return self;
 }
@@ -175,9 +176,9 @@
             return;
         else if(-total > self.slideOffset)
             return;
-        if(!self.rightController && total < 0)
+        if((!self.rightController && total < 0) || (!self.canShowRight && total < 0))
             return;
-        if(!self.leftController && total > 0)
+        if((!self.leftController && total > 0) || (!self.canShowLeft && total > 0))
             return;
         
         [UIView animateWithDuration:0.15f animations:^{

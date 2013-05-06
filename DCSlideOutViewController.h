@@ -39,6 +39,12 @@
 //this allows if the view can be swipe open and closed. Default is YES.
 @property(nonatomic,assign)BOOL canSwipeView;
 
+//this allows if the view can be swipe open to the right. Default is YES.
+@property(nonatomic,assign)BOOL canShowRight;
+
+//this allows if the view can be swipe open to the Left. Default is YES.
+@property(nonatomic,assign)BOOL canShowLeft;
+
 //show the left view
 -(void)showLeftView;
 
