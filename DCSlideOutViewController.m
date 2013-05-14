@@ -86,12 +86,14 @@
 {
     [self slideView:NO];
     [self.leftController viewWillAppear:YES];
+    [[self.centerController topViewController] viewWillDisappear:YES];
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 -(void)showRightView
 {
     [self slideView:YES];
     [self.rightController viewWillAppear:YES];
+    [[self.centerController topViewController] viewWillDisappear:YES];
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 -(void)slideView:(BOOL)right
@@ -126,6 +128,7 @@
     [UIView animateWithDuration:0.35f animations:^{
         centerView.frame = CGRectMake(0, 0.0f, centerView.frame.size.width, centerView.frame.size.height);
     }completion:NULL];
+    [[self.centerController topViewController] viewWillAppear:YES];
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 -(void)restoreWithNewCenterView:(UINavigationController*)navigationController
