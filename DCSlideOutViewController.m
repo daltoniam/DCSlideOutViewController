@@ -63,6 +63,7 @@
         self.leftController.view.frame = leftView.bounds;
         [leftView addSubview:leftController.view];
         [self.view insertSubview:leftView belowSubview:centerView];
+        leftView.hidden = YES;
     }
     if(self.rightController)
     {
@@ -73,6 +74,7 @@
         self.rightController.view.frame = rightView.bounds;
         [rightView addSubview:rightController.view];
         [self.view insertSubview:rightView belowSubview:centerView];
+        rightView.hidden = YES;
     }
     if(self.canSwipeView)
     {
@@ -224,6 +226,20 @@
     centerController.view.frame = centerView.bounds;
     [centerView addSubview:centerController.view];
     [self addChildViewController:centerController];
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-(BOOL)isLeftShowing
+{
+    if(isCenterShowing)
+        return NO;
+    return !leftView.hidden;
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-(BOOL)isRightShowing
+{
+    if(isCenterShowing)
+        return NO;
+    return !rightView.hidden;
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //forward this on
