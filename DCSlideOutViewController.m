@@ -112,7 +112,7 @@
     float offset = self.slideOffset;
     if(right)
         offset = -offset;
-    [UIView animateWithDuration:0.35f animations:^{
+    [UIView animateWithDuration:0.25f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         centerView.frame = CGRectMake(offset, 0.0f, centerView.frame.size.width, centerView.frame.size.height);
     }completion:NULL];
     if(!closeTap)
@@ -126,7 +126,7 @@
     isCenterShowing = YES;
     for(UIView* subview in self.centerController.visibleViewController.view.subviews)
         subview.userInteractionEnabled = YES;
-    [UIView animateWithDuration:0.35f animations:^{
+    [UIView animateWithDuration:0.25f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         centerView.frame = CGRectMake(0, 0.0f, centerView.frame.size.width, centerView.frame.size.height);
     }completion:NULL];
     [[self.centerController topViewController] viewWillAppear:YES];
