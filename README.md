@@ -9,7 +9,7 @@ Requires Quartz framework.
 # Example #
 
 	UINavigationController* navBar = [[UINavigationController alloc] initWithRootViewController:[[YourCenterViewController alloc] init]];
-	GPSlideOutViewController* slide = [DCSlideOutViewController slideOutController:navBar
+	DCSlideOutViewController* slide = [DCSlideOutViewController slideOutController:navBar
 	                                                                          left:[[YourLeftViewController alloc] init]
 	                                                                         right:[[YourRightViewController alloc] init];
 	slide.leftViewIsSlideLength = YES;
@@ -17,19 +17,19 @@ Requires Quartz framework.
 	
 then in your main view controller I recommend you add something like this:
 
-	self.navigationItem.leftBarButtonItem = [UIBarButtonItem customButtonWithImage:[UIImage imageNamed:@"show_sidebar"] target:self selector:@selector(openLeft)];
-    self.navigationItem.rightBarButtonItem = [UIBarButtonItem customButtonWithImage:[UIImage imageNamed:@"show_participants"] target:self selector:@selector(openRight)];
+	self.navigationItem.leftBarButtonItem = [UIBarButtonItem customButtonWithImage:[UIImage imageNamed:@"show_left"] target:self selector:@selector(openLeft)];
+    self.navigationItem.rightBarButtonItem = [UIBarButtonItem customButtonWithImage:[UIImage imageNamed:@"show_right"] target:self selector:@selector(openRight)];
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	-(void)openLeft
 	{
-	    GPSlideOutViewController* slide = [DCSlideOutViewController currentSlide];
+	    DCSlideOutViewController* slide = [DCSlideOutViewController currentSlide];
 	    [slide showLeftView];
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	-(void)openRight
 	{
-	    GPSlideOutViewController* slide = [DCSlideOutViewController currentSlide];
+	    DCSlideOutViewController* slide = [DCSlideOutViewController currentSlide];
 	    [slide showRightView];
 	}
 	
