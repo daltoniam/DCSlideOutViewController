@@ -87,14 +87,20 @@
 {
     [self slideView:NO];
     [self.leftController viewWillAppear:YES];
-    [[self.centerController topViewController] viewWillDisappear:YES];
+    UIViewController* vc = self.centerController;
+    if([vc isKindOfClass:[UINavigationController class]])
+        vc = [self.centerController topViewController];
+    [vc viewWillDisappear:YES];
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 -(void)showRightView
 {
     [self slideView:YES];
     [self.rightController viewWillAppear:YES];
-    [[self.centerController topViewController] viewWillDisappear:YES];
+    UIViewController* vc = self.centerController;
+    if([vc isKindOfClass:[UINavigationController class]])
+        vc = [self.centerController topViewController];
+    [vc viewWillDisappear:YES];
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 -(void)slideView:(BOOL)right
@@ -105,7 +111,10 @@
         return;
     }
     isCenterShowing = NO;
-    for(UIView* subview in self.centerController.visibleViewController.view.subviews)
+    UIViewController* vc = self.centerController;
+    if([vc isKindOfClass:[UINavigationController class]])
+        vc = self.centerController.visibleViewController;
+    for(UIView* subview in vc.view.subviews)
         subview.userInteractionEnabled = NO;
     rightView.hidden = !right;
     leftView.hidden = right;
@@ -124,12 +133,15 @@
 {
     [centerView removeGestureRecognizer:closeTap];
     isCenterShowing = YES;
-    for(UIView* subview in self.centerController.visibleViewController.view.subviews)
+    UIViewController* vc = self.centerController;
+    if([vc isKindOfClass:[UINavigationController class]])
+        vc = self.centerController.visibleViewController;
+    for(UIView* subview in vc.view.subviews)
         subview.userInteractionEnabled = YES;
     [UIView animateWithDuration:0.25f delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
         centerView.frame = CGRectMake(0, 0.0f, centerView.frame.size.width, centerView.frame.size.height);
     }completion:NULL];
-    [[self.centerController topViewController] viewWillAppear:YES];
+    [vc viewWillAppear:YES];
 }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 -(void)restoreWithNewCenterView:(UINavigationController*)navigationController
